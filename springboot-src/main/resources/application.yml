@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: canteen-backend
+  profiles:
+    active: dev
+
+  datasource:
+    url: jdbc:mysql://${config.mysql.host}:${config.mysql.port}/${config.mysql.database}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: ${config.mysql.username}
+    password: ${config.mysql.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+        default_batch_fetch_size: 20
+
+  data:
+    redis:
+      host: ${config.redis.host}
+      port: ${config.redis.port}
+      password: ${config.redis.password}
+      database: 0
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 8
+          min-idle: 2
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+
+
+canteen:
+  jwt:
+    secret: ${JWT_SECRET:4d97384c0eee6814e6d30b616fb5aba289ee8897c9379f01a0786ebc2a0f42d1}
+    expiration: 86400
+    refresh-expiration: 604800
+  security:
+    permit-all: /api/auth/**,/api/mobile/auth/**,/api/menu/**,/api/files/**,/actuator/health
+  ai:
+    base-url: ${AI_BASE_URL:https://api.apimart.ai/v1}
+    api-key: ${AI_API_KEY:}
+    model: gemini-3-flash-preview-thinking-apimart
+  storage:
+    appwrite:
+      endpoint: ${APPWRITE_ENDPOINT:https://cloud.appwrite.io/v1}
+      project-id: ${APPWRITE_PROJECT_ID:}
+      api-key: ${APPWRITE_API_KEY:}
+      bucket-id: ${APPWRITE_BUCKET_ID:69b649530025ae9fe648}
+
+server:
+  port: 8081
+  servlet:
+    context-path: /

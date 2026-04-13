@@ -1,0 +1,31 @@
+package com.canteen.repository;
+
+import com.canteen.entity.Admin;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface AdminRepository extends JpaRepository<Admin, Long> {
+
+    Optional<Admin> findByUsername(String username);
+
+    boolean existsByUsername(String username);
+
+    @Query("SELECT a FROM Admin a WHERE (a.isDeleted = false OR a.isDeleted IS NULL) " +
+            "AND (:keyword IS NULL OR a.username LIKE %:keyword% OR a.realName LIKE %:keyword% OR a.phone LIKE %:keyword%) " +
+            "AND (:status IS NULL OR a.status = :status)")
+    Page<Admin> findByFilters(@Param("keyword") String keyword,
+                              @Param("status") String status,
+                              Pageable pageable);
+
+    @Query("SELECT a FROM Admin a JOIN a.roles r WHERE r.name = :roleName " +
+            "AND (a.isDeleted = false OR a.isDeleted IS NULL) AND a.status = 'active'")
+    List<Admin> findByRoleName(@Param("roleName") String roleName);
+}

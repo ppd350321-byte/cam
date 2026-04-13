@@ -1,0 +1,24 @@
+config:
+  mysql:
+    host: mysql7.sqlpub.com
+    port: 3312
+    username: trees_sakimori
+    password: Bd4cnQd9Py5QAFk9
+    database: canteen_db
+  redis:
+    host: redis-13372.c294.ap-northeast-1-2.ec2.cloud.redislabs.com
+    port: 13372
+    password: 9RXMMe6hktv6oqnHIOYro5QPQmAHDN9P
+
+canteen:
+  ai:
+    api-key: "sk-mNHcdmnyz54zxEp7xvUHNGXuQcusm30EiMwMAU3JhApO7WE2"
+    model: "claude-haiku-4-5-20251001-apimart"
+    proxy-host: "127.0.0.1"
+    proxy-port: "6819"
+  storage:
+    appwrite:
+      endpoint: "https://nyc.cloud.appwrite.io/v1"
+      project-id: "69b648d300150752f0f3"
+      api-key: "standard_625b203b47e0e6baface4fc518fd7ce064b4685f47e7d85dbd65bc1795b86ea5d4af68e51f26222eefa7ac83e15b0976d4059897bff9ebbd657b22a42e0847027126a77570218da0fdbb8bcd14f923aa1eb8388870eabe17191c7119963639d118ef85fa94dcfa21f14d83ec03535384252ad35787489b5f033f889e4699c44c"
+      bucket-id: "69b649530025ae9fe648"
